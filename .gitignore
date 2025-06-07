@@ -1,0 +1,41 @@
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Log
+*.log
+
+# Build directories
+/build/
+/target/
+/dist/
+/out/
+
+# IDEs
+*.iml
+.idea/
+*.ipr
+*.iws
+.vscode/
+*.swp
+
+# Maven
+.mvn/
+.mvn/timing.properties
+.mvn/wrapper/
+mvnw
+mvnw.cmd
+
+# Maven repository custom
+.m2_repo/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup
+*.bak
+*.tmp
+*~

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="Views.FrmPrincipalController" stylesheets="@styles/style.css">
+    
+    <!-- Topo com botões -->
+    <top>
+        <HBox spacing="20" alignment="CENTER">
+            <padding>
+                <Insets top="10" bottom="10" left="10" right="10"/>
+            </padding>
+            <Button fx:id="btnZerarCampeonato" text="Reiniciar Campeonato" onAction="#acionou" prefWidth="180"/>
+            <Button fx:id="btnInserirTime" text="Inserir Time" onAction="#acionou" prefWidth="150"/>
+            <Button fx:id="btnInserirJogo" text="Inserir Jogo" onAction="#acionou" prefWidth="150"/>
+        </HBox>
+    </top>
+
+    <!-- Centro com tabela -->
+    <center>
+        <TableView fx:id="tabelaTimes" prefHeight="400" prefWidth="780">
+            <BorderPane.margin>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </BorderPane.margin>
+            <columns>
+                <TableColumn fx:id="colPosicao" text="Posição" minWidth="50" style="-fx-alignment: CENTER;"/>
+                <TableColumn fx:id="colApelido" text="Apelido" minWidth="100" style="-fx-alignment: CENTER-LEFT;"/>
+                <TableColumn fx:id="colNome" text="Nome" minWidth="200" style="-fx-alignment: CENTER-LEFT;"/>
+                <TableColumn fx:id="colPontos" text="Pontos" minWidth="50" style="-fx-alignment: CENTER;"/>
+                <TableColumn fx:id="colGP" text="GP" minWidth="50" style="-fx-alignment: CENTER;" />
+                <TableColumn fx:id="colGC" text="GC" minWidth="50" style="-fx-alignment: CENTER;"/>
+                <TableColumn fx:id="colSG" text="SG" minWidth="50" style="-fx-alignment: CENTER;"/>
+                <TableColumn fx:id="colEditar" text="Editar" minWidth="80" style="-fx-alignment: CENTER;"/>
+                <TableColumn fx:id="colRemover" text="Remover" minWidth="80" style="-fx-alignment: CENTER;"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

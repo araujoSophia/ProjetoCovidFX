@@ -1,0 +1,12 @@
+.root {
+    -fx-font-size: 26px; /* aumenta a fonte base para toda a janela */
+}
+
+.table-view .table-cell {
+    -fx-padding: 0 10 0 10; /* exemplo de padding horizontal */
+    -fx-background-color: #e0f7fa;
+}
+
+.vbox {
+    -fx-background-color: #e0f7fa;
+}

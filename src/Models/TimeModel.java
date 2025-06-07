@@ -1,0 +1,83 @@
+package Models;
+
+public class TimeModel {
+    private int id;
+    private int posicao;
+    private String apelido;
+    private String nome;
+    private int pontos;
+    private int golsMarcados;
+    private int golsSofridos;
+
+    public TimeModel() {}
+
+    public TimeModel(int id, int posicao, String apelido, String nome, int pontos, int golsMarcados, int golsSofridos) {
+        this.id = id;
+        this.posicao = posicao;
+        this.apelido = apelido;
+        this.nome = nome;
+        this.pontos = pontos;
+        this.golsMarcados = golsMarcados;
+        this.golsSofridos = golsSofridos;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setPosicao(int posicao) {
+        this.posicao = posicao;
+    }
+
+    public int getPosicao() {
+        return posicao;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getApelido() {
+        return apelido;
+    }
+
+    public void setApelido(String apelido) {
+        this.apelido = apelido;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public int getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
+    public int getGolsMarcados() {
+        return golsMarcados;
+    }
+
+    public void setGolsMarcados(int golsMarcados) {
+        this.golsMarcados = golsMarcados;
+    }
+
+    public int getGolsSofridos() {
+        return golsSofridos;
+    }
+
+    public void setGolsSofridos(int golsSofridos) {
+        this.golsSofridos = golsSofridos;
+    }
+
+    public int getSaldoGols() {
+        return golsMarcados - golsSofridos;
+    }
+}
