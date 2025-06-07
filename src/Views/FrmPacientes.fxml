@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="Views.FrmPacientesController">
+    
+    <top>
+        <ToolBar>
+            <Button fx:id="btnInserirPaciente" text="Inserir Paciente" onAction="#acionou" />
+        </ToolBar>
+    </top>
+
+    <center>
+        <TableView fx:id="tabelaPacientes">
+            <columns>
+                <TableColumn fx:id="colPosicao" text="#" />
+                <TableColumn fx:id="colCpf" text="CPF" />
+                <TableColumn fx:id="colNome" text="Nome" />
+                <TableColumn fx:id="colDataNasc" text="Data Nasc" />
+                <TableColumn fx:id="colIdade" text="Idade" />
+                <TableColumn fx:id="colEstado" text="Estado" />
+                <TableColumn fx:id="colCidade" text="Cidade" />
+                <TableColumn fx:id="colEditar" text="Editar" />
+                <TableColumn fx:id="colRemover" text="Remover" />
+            </columns>
+        </TableView>
+    </center>
+
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+    
+</BorderPane>

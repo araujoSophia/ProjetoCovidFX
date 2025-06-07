@@ -15,6 +15,7 @@
             <Button fx:id="btnZerarCampeonato" text="Reiniciar Campeonato" onAction="#acionou" prefWidth="180"/>
             <Button fx:id="btnInserirTime" text="Inserir Time" onAction="#acionou" prefWidth="150"/>
             <Button fx:id="btnInserirJogo" text="Inserir Jogo" onAction="#acionou" prefWidth="150"/>
+            <Button fx:id="btnPacientes" text="Pacientes" onAction="#abrirPacientes" prefWidth="150"/>
         </HBox>
     </top>
 

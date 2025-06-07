@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="Views.DlgPacienteController" stylesheets="@styles/style.css">
+    
+    <padding>
+        <Insets top="20" right="40" bottom="20" left="40"/>
+    </padding>
+    
+    <GridPane hgap="10" vgap="10">
+        <Label text="Nome:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtNome" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="200"/>
+
+        <Label text="CPF:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtCpf" GridPane.rowIndex="1" GridPane.columnIndex="1" prefWidth="200"/>
+
+        <Label text="Data de Nascimento:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="txtDataNasc" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="200"/>
+
+        <Label text="Idade:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtIdade" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="200"/>
+
+        <Label text="Estado:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtEstado" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="200"/>
+
+        <Label text="Cidade:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtCidade" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="200"/>
+
+        <Label text="Foto:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <ImageView fx:id="imgFoto" fitHeight="150.0" fitWidth="150.0" GridPane.rowIndex="6" GridPane.columnIndex="1" />
+
+        <Button fx:id="btnSelecionarFoto" text="Selecionar Foto" onAction="#onSelecionarFoto" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+    </GridPane>
+    
+    <HBox spacing="30" alignment="CENTER">
+        <Button fx:id="btnSalvar" text="Salvar" onAction="#handleSalvar" prefWidth="150"/>
+        <Button fx:id="btnCancelar" text="Cancelar" onAction="#handleCancelar" prefWidth="150"/>
+    </HBox>
+</VBox>

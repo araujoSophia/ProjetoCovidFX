@@ -1,8 +1,10 @@
 package Services;
 
 import Entities.JogoEntity;
+import Entities.PacienteEntity;
 import Entities.TimeEntity;
 import Models.TimeModel;
+import Repositories.PacienteRepository;
 import Repositories.TimeRepository;
 
 import java.util.*;
@@ -10,9 +12,11 @@ import java.util.*;
 public class CampeonatoService {
 
     private final TimeRepository timeRepository;
+    private final PacienteRepository pacienteRepository;
 
     public CampeonatoService() {
         this.timeRepository = new TimeRepository();
+        this.pacienteRepository = new PacienteRepository();
     }
 
     public void inserirJogo(JogoEntity jogo) {
@@ -46,8 +50,7 @@ public class CampeonatoService {
         timeRepository.atualizar(timeVisitante);
     }
 
-    private static int diff(TimeEntity t1, TimeEntity t2)
-    {
+    private static int diff(TimeEntity t1, TimeEntity t2) {
         if (t2.getPontos() != t1.getPontos()) {
             return Integer.compare(t2.getPontos(), t1.getPontos());
         }
@@ -58,44 +61,40 @@ public class CampeonatoService {
             return Integer.compare(t2.getGolsMarcados(), t1.getGolsMarcados());
         }
         return 0;
-    }   
+    }
 
-
-    private static boolean mesmaPontuacao(TimeEntity t1, TimeEntity t2)
-    {
-        return diff(t1,t2) == 0;
-    }   
+    private static boolean mesmaPontuacao(TimeEntity t1, TimeEntity t2) {
+        return diff(t1, t2) == 0;
+    }
 
     public List<TimeModel> obterClassificacao() {
         List<TimeEntity> lista = timeRepository.listarTodos();
 
         lista.sort((t1, t2) -> {
-             int r = CampeonatoService.diff(t1,t2);
-             if (r==0)
+            int r = CampeonatoService.diff(t1, t2);
+            if (r == 0)
                 r = t1.getApelido().compareTo(t2.getApelido());
-             return r;    
+            return r;
         });
 
-        List<TimeModel> classificao  = new ArrayList<TimeModel>();
+        List<TimeModel> classificao = new ArrayList<TimeModel>();
 
-        int linha=0;
+        int linha = 0;
         int posicaoAnt = 0;
         TimeEntity ant = null;
-        for(TimeEntity t : lista)
-        {
+        for (TimeEntity t : lista) {
             linha++;
             TimeModel tm = new TimeModel(
-              t.getId(),
-              ant==null || !CampeonatoService.mesmaPontuacao(ant, t) ? linha : posicaoAnt,
-              t.getApelido(),
-              t.getNome(),
-              t.getPontos(),
-              t.getGolsMarcados(),
-              t.getGolsSofridos()  
-           );
-           classificao.add( tm );
-           ant = t;
-           posicaoAnt = tm.getPosicao();
+                    t.getId(),
+                    ant == null || !CampeonatoService.mesmaPontuacao(ant, t) ? linha : posicaoAnt,
+                    t.getApelido(),
+                    t.getNome(),
+                    t.getPontos(),
+                    t.getGolsMarcados(),
+                    t.getGolsSofridos());
+            classificao.add(tm);
+            ant = t;
+            posicaoAnt = tm.getPosicao();
         }
 
         return classificao;
@@ -154,4 +153,53 @@ public class CampeonatoService {
         }
         timeRepository.deletarPorApelido(apelido);
     }
+
+    // ====== PACIENTES ======
+
+    public PacienteEntity buscarPacientePorCpf(String cpf) throws Exception {
+        return pacienteRepository.buscarPorCpf(cpf);
+    }
+
+    public void inserirPaciente(PacienteEntity paciente) throws Exception {
+        pacienteRepository.inserir(paciente);
+    }
+
+    public void editarPaciente(PacienteEntity paciente) throws Exception {
+        pacienteRepository.atualizar(paciente);
+    }
+
+    public List<PacienteEntity> listarPacientes() {
+        return pacienteRepository.listar();
+    }
+
+    public void removerPaciente(String cpf) throws Exception {
+        pacienteRepository.remover(cpf);
+    }
+
+    public ArrayList<Models.PacienteModel> obterPacientesParaTabela() {
+        ArrayList<Models.PacienteModel> listaModel = new ArrayList<>();
+        ArrayList<Entities.PacienteEntity> listaEntidades = pacienteRepository.listar();
+
+        int posicao = 1;
+        for (Entities.PacienteEntity paciente : listaEntidades) {
+            Models.PacienteModel model = new Models.PacienteModel(
+                    posicao++,
+                    paciente.getCpf(),
+                    paciente.getNome(),
+                    String.valueOf(paciente.getIdade()),
+                    paciente.getCidade(),
+                    paciente.getEstado(),
+                    paciente.getDataNasc());
+            listaModel.add(model);
+        }
+        return listaModel;
+    }
+
+    public void reiniciarPacientes() throws Exception {
+        ArrayList<Entities.PacienteEntity> lista = pacienteRepository.listar();
+        for (Entities.PacienteEntity paciente : lista) {
+            pacienteRepository.remover(paciente.getCpf());
+        }
+    }
+
 }

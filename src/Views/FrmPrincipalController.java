@@ -1,10 +1,13 @@
 package Views;
 
+import Models.PacienteModel;
 import Models.TimeModel;
 import Services.CampeonatoService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
@@ -12,21 +15,39 @@ import javafx.stage.Stage;
 
 public class FrmPrincipalController {
 
-    @FXML private Button btnZerarCampeonato;
-    @FXML private Button btnInserirTime;
-    @FXML private Button btnInserirJogo;
-    @FXML private BorderPane rootPane;
+    @FXML
+    private Button btnZerarCampeonato;
+    @FXML
+    private Button btnInserirTime;
+    @FXML
+    private Button btnInserirJogo;
+    @FXML
+    private Button btnPacientes;
+    @FXML
+    private BorderPane rootPane;
 
-    @FXML private TableView<TimeModel> tabelaTimes;
-    @FXML private TableColumn<TimeModel, Integer> colPosicao;
-    @FXML private TableColumn<TimeModel, String> colApelido;
-    @FXML private TableColumn<TimeModel, String> colNome;
-    @FXML private TableColumn<TimeModel, Integer> colPontos;
-    @FXML private TableColumn<TimeModel, Integer> colGP;
-    @FXML private TableColumn<TimeModel, Integer> colGC;
-    @FXML private TableColumn<TimeModel, Integer> colSG;
-    @FXML private TableColumn<TimeModel, Void> colEditar;
-    @FXML private TableColumn<TimeModel, Void> colRemover;
+    @FXML
+    private TableView<TimeModel> tabelaTimes;
+    @FXML
+    private TableView<PacienteModel> tabelaPacientes;
+    @FXML
+    private TableColumn<TimeModel, Integer> colPosicao;
+    @FXML
+    private TableColumn<TimeModel, String> colApelido;
+    @FXML
+    private TableColumn<TimeModel, String> colNome;
+    @FXML
+    private TableColumn<TimeModel, Integer> colPontos;
+    @FXML
+    private TableColumn<TimeModel, Integer> colGP;
+    @FXML
+    private TableColumn<TimeModel, Integer> colGC;
+    @FXML
+    private TableColumn<TimeModel, Integer> colSG;
+    @FXML
+    private TableColumn<TimeModel, Void> colEditar;
+    @FXML
+    private TableColumn<TimeModel, Void> colRemover;
 
     private CampeonatoService campeonatoService = new CampeonatoService();
 
@@ -53,7 +74,8 @@ public class FrmPrincipalController {
         tabelaTimes.setItems(dados);
     }
 
-    private void adicionarColunaBotao(TableColumn<TimeModel, Void> coluna, String texto, java.util.function.Consumer<TimeModel> acao) {
+    private void adicionarColunaBotao(TableColumn<TimeModel, Void> coluna, String texto,
+            java.util.function.Consumer<TimeModel> acao) {
         coluna.setCellFactory(col -> new TableCell<>() {
             private final Button btn = new Button(texto);
 
@@ -104,7 +126,8 @@ public class FrmPrincipalController {
         Object origem = event.getSource();
         try {
             if (origem == btnZerarCampeonato) {
-                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Deseja reiniciar o campeonato?", ButtonType.YES, ButtonType.NO);
+                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Deseja reiniciar o campeonato?",
+                        ButtonType.YES, ButtonType.NO);
                 confirm.setTitle("Confirmar");
                 confirm.showAndWait().ifPresent(r -> {
                     if (r == ButtonType.YES) {
@@ -134,4 +157,19 @@ public class FrmPrincipalController {
             alert.showAndWait();
         }
     }
+
+    @FXML
+    private void abrirPacientes() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FrmPacientes.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = new Stage();
+            stage.setTitle("Cadastro de Pacientes");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
