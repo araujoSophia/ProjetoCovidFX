@@ -13,19 +13,26 @@
     </top>
 
     <center>
-        <TableView fx:id="tabelaPacientes">
-            <columns>
-                <TableColumn fx:id="colPosicao" text="#" />
-                <TableColumn fx:id="colCpf" text="CPF" />
-                <TableColumn fx:id="colNome" text="Nome" />
-                <TableColumn fx:id="colDataNasc" text="Data Nasc" />
-                <TableColumn fx:id="colIdade" text="Idade" />
-                <TableColumn fx:id="colEstado" text="Estado" />
-                <TableColumn fx:id="colCidade" text="Cidade" />
-                <TableColumn fx:id="colEditar" text="Editar" />
-                <TableColumn fx:id="colRemover" text="Remover" />
-            </columns>
-        </TableView>
+        <VBox spacing="10" style="-fx-padding: 10 0 0 0;">
+                <HBox spacing="10" alignment="CENTER">
+                    <Label text="Filtro:" />
+                    <TextField fx:id="txtFiltro" promptText="Digite Nome, CPF, Cidade ou Estado" />
+                    <Button text="Filtrar" onAction="#filtrarPacientes" />
+                </HBox>
+            <TableView fx:id="tabelaPacientes">
+                <columns>
+                    <TableColumn fx:id="colPosicao" text="#" />
+                    <TableColumn fx:id="colCpf" text="CPF" />
+                    <TableColumn fx:id="colNome" text="Nome" />
+                    <TableColumn fx:id="colDataNasc" text="Data Nasc" />
+                    <TableColumn fx:id="colIdade" text="Idade" />
+                    <TableColumn fx:id="colEstado" text="Estado" />
+                    <TableColumn fx:id="colCidade" text="Cidade" />
+                    <TableColumn fx:id="colEditar" text="Editar" />
+                    <TableColumn fx:id="colRemover" text="Remover" />
+                </columns>
+            </TableView>
+        </VBox>
     </center>
 
     <padding>

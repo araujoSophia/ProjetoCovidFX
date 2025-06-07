@@ -37,6 +37,8 @@ public class FrmPacientesController {
     private TableColumn<PacienteModel, Void> colEditar;
     @FXML
     private TableColumn<PacienteModel, Void> colRemover;
+    @FXML
+    private TextField txtFiltro;
 
     private CampeonatoService campeonatoService = new CampeonatoService();
 
@@ -62,6 +64,24 @@ public class FrmPacientesController {
         ObservableList<PacienteModel> dados = FXCollections
                 .observableArrayList(campeonatoService.obterPacientesParaTabela());
         tabelaPacientes.setItems(dados);
+    }
+
+    @FXML
+    private void filtrarPacientes() {
+        String filtro = txtFiltro.getText().trim().toLowerCase();
+
+        ObservableList<PacienteModel> listaFiltrada = FXCollections.observableArrayList();
+
+        for (PacienteModel paciente : FXCollections.observableArrayList(campeonatoService.obterPacientesParaTabela())) {
+            if (paciente.getNome().toLowerCase().contains(filtro) ||
+                    paciente.getCpf().toLowerCase().contains(filtro) ||
+                    paciente.getCidade().toLowerCase().contains(filtro) ||
+                    paciente.getEstado().toLowerCase().contains(filtro)) {
+                listaFiltrada.add(paciente);
+            }
+        }
+
+        tabelaPacientes.setItems(listaFiltrada);
     }
 
     private void adicionarColunaBotao(TableColumn<PacienteModel, Void> coluna, String texto,
