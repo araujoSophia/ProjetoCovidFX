@@ -5,6 +5,7 @@ import Entities.ObitoEntity;
 import Entities.PacienteEntity;
 import Entities.TesteEntity;
 import Entities.TimeEntity;
+import Models.ObitoModel;
 import Models.TesteModel;
 import Models.TimeModel;
 import Repositories.PacienteRepository;
@@ -244,6 +245,16 @@ public class CampeonatoService {
             throw new Exception("Paciente com CPF " + obito.getCpfPaciente() + " não encontrado.");
         }
         obitoRepository.inserir(obito);
+    }
+
+    public ArrayList<ObitoModel> obterObitosParaTabela() {
+        ArrayList<ObitoEntity> obitos = obitoRepository.listar();
+        ArrayList<ObitoModel> modelos = new ArrayList<>();
+
+        for (ObitoEntity obito : obitos) {
+            modelos.add(new ObitoModel(obito.getDataObito(), obito.getCpfPaciente()));
+        }
+        return modelos;
     }
 
 }

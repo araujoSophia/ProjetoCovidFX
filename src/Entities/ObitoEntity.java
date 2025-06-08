@@ -4,6 +4,9 @@ public class ObitoEntity {
     private String cpfPaciente;
     private String dataObito;
 
+    public ObitoEntity() {
+    }
+
     public ObitoEntity(String cpfPaciente, String dataObito) {
         this.cpfPaciente = cpfPaciente;
         this.dataObito = dataObito;

@@ -206,4 +206,21 @@ public class FrmPrincipalController {
         Views.DlgObitoController.showDialog(stage);
     }
 
+    @FXML
+    private void abrirListagemObitos() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FrmObitos.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = new Stage();
+            stage.initOwner(rootPane.getScene().getWindow());
+            stage.setTitle("Listagem de Óbitos");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

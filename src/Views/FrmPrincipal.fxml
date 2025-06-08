@@ -19,6 +19,7 @@
             <Button fx:id="btnTestes" text="Testes" onAction="#abrirCadastroTestes" prefWidth="150"/>
             <Button fx:id="btnListarTestes" text="Listar Testes" onAction="#abrirListagemTestes" prefWidth="150"/>
             <Button fx:id="btnObitos" text="Óbitos" onAction="#abrirCadastroObitos" prefWidth="150"/>
+            <Button fx:id="btnListarObitos" text="Listar Óbitos" onAction="#abrirListagemObitos" prefWidth="150"/>
         </HBox>
     </top>
 
