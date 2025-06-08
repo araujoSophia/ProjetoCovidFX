@@ -70,9 +70,18 @@ public abstract class SQLiteBaseRepository {
                         ");";
                 stmt.execute(criarTabelaTeste);
 
+                // Criação da tabela "óbito"
+                String criarTabelaObitos = "CREATE TABLE IF NOT EXISTS obitos (" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "cpfPaciente TEXT NOT NULL," +
+                        "dataObito TEXT NOT NULL" +
+                        ");";
+                stmt.execute(criarTabelaObitos);
+
             } catch (SQLException e) {
                 System.err.println("Erro ao inicializar o banco de dados: " + e.getMessage());
             }
+
         }
     }
 

@@ -200,4 +200,10 @@ public class FrmPrincipalController {
         }
     }
 
+    @FXML
+    private void abrirCadastroObitos() {
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        Views.DlgObitoController.showDialog(stage);
+    }
+
 }

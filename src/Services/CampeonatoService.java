@@ -1,6 +1,7 @@
 package Services;
 
 import Entities.JogoEntity;
+import Entities.ObitoEntity;
 import Entities.PacienteEntity;
 import Entities.TesteEntity;
 import Entities.TimeEntity;
@@ -8,6 +9,7 @@ import Models.TesteModel;
 import Models.TimeModel;
 import Repositories.PacienteRepository;
 import Repositories.TesteRepository;
+import Repositories.ObitoRepository;
 import Repositories.TimeRepository;
 
 import java.util.*;
@@ -16,12 +18,14 @@ public class CampeonatoService {
 
     private final TimeRepository timeRepository;
     private final PacienteRepository pacienteRepository;
-    private TesteRepository testeRepository = new TesteRepository();
+    private final TesteRepository testeRepository;
+    private final ObitoRepository obitoRepository;
 
     public CampeonatoService() {
         this.timeRepository = new TimeRepository();
         this.pacienteRepository = new PacienteRepository();
         this.testeRepository = new TesteRepository();
+        this.obitoRepository = new ObitoRepository();
     }
 
     public void inserirJogo(JogoEntity jogo) {
@@ -230,6 +234,16 @@ public class CampeonatoService {
             modelos.add(new TesteModel(teste.getDataTeste(), teste.getCpfPaciente(), teste.getResultado()));
         }
         return modelos;
+    }
+
+    // ====== ÓBITOS ======
+
+    public void inserirObito(ObitoEntity obito) throws Exception {
+        PacienteEntity paciente = buscarPacientePorCpf(obito.getCpfPaciente());
+        if (paciente == null) {
+            throw new Exception("Paciente com CPF " + obito.getCpfPaciente() + " não encontrado.");
+        }
+        obitoRepository.inserir(obito);
     }
 
 }
