@@ -3,7 +3,9 @@ package Repositories;
 import Entities.TesteEntity;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class TesteRepository extends SQLiteBaseRepository {
 
@@ -17,4 +19,24 @@ public class TesteRepository extends SQLiteBaseRepository {
             stmt.executeUpdate();
         }
     }
+
+    public ArrayList<TesteEntity> listar() {
+        ArrayList<TesteEntity> lista = new ArrayList<>();
+        try (Connection conn = connect()) {
+            String sql = "SELECT * FROM teste";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                TesteEntity teste = new TesteEntity();
+                teste.setCpfPaciente(rs.getString("cpf_paciente"));
+                teste.setDataTeste(rs.getString("data_teste"));
+                teste.setResultado(rs.getString("resultado"));
+                lista.add(teste);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
 }

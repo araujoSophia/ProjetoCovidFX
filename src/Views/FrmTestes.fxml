@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="Views.FrmTestesController" 
+            prefWidth="600" prefHeight="400" style="-fx-padding: 10 0 0 0;">
+    
+    <center>
+        <TableView fx:id="tabelaTestes" style="-fx-margin: 10 0 0 0;">
+            <columns>
+                <TableColumn text="Data" fx:id="colData" prefWidth="200"/>
+                <TableColumn text="CPF Paciente" fx:id="colCpfPaciente" prefWidth="200"/>
+                <TableColumn text="Resultado" fx:id="colResultado" prefWidth="200"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

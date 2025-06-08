@@ -4,6 +4,7 @@ import Entities.JogoEntity;
 import Entities.PacienteEntity;
 import Entities.TesteEntity;
 import Entities.TimeEntity;
+import Models.TesteModel;
 import Models.TimeModel;
 import Repositories.PacienteRepository;
 import Repositories.TesteRepository;
@@ -219,6 +220,16 @@ public class CampeonatoService {
             throw new Exception("Paciente com CPF " + teste.getCpfPaciente() + " não encontrado.");
         }
         testeRepository.inserir(teste);
+    }
+
+    public ArrayList<TesteModel> obterTestesParaTabela() {
+        ArrayList<TesteEntity> testes = testeRepository.listar();
+        ArrayList<TesteModel> modelos = new ArrayList<>();
+
+        for (TesteEntity teste : testes) {
+            modelos.add(new TesteModel(teste.getDataTeste(), teste.getCpfPaciente(), teste.getResultado()));
+        }
+        return modelos;
     }
 
 }

@@ -16,7 +16,8 @@
             <Button fx:id="btnInserirTime" text="Inserir Time" onAction="#acionou" prefWidth="150"/>
             <Button fx:id="btnInserirJogo" text="Inserir Jogo" onAction="#acionou" prefWidth="150"/> -->
             <Button fx:id="btnPacientes" text="Pacientes" onAction="#abrirPacientes" prefWidth="150"/>
-            <Button fx:id="btnTestes" text="Testes" onAction="#abrirTestes" prefWidth="150"/>
+            <Button fx:id="btnTestes" text="Testes" onAction="#abrirCadastroTestes" prefWidth="150"/>
+            <Button fx:id="btnListarTestes" text="Listar Testes" onAction="#abrirListagemTestes" prefWidth="150"/>
         </HBox>
     </top>
 

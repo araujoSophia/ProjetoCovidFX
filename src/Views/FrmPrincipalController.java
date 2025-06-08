@@ -24,6 +24,10 @@ public class FrmPrincipalController {
     @FXML
     private Button btnPacientes;
     @FXML
+    private Button btnTestes;
+    @FXML
+    private Button btnListarTestes;
+    @FXML
     private BorderPane rootPane;
 
     @FXML
@@ -121,42 +125,44 @@ public class FrmPrincipalController {
         alert.showAndWait();
     }
 
-    @FXML
-    private void acionou(javafx.event.ActionEvent event) {
-        Object origem = event.getSource();
-        try {
-            if (origem == btnZerarCampeonato) {
-                Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Deseja reiniciar o campeonato?",
-                        ButtonType.YES, ButtonType.NO);
-                confirm.setTitle("Confirmar");
-                confirm.showAndWait().ifPresent(r -> {
-                    if (r == ButtonType.YES) {
-                        campeonatoService.reiniciarCampeonato();
-                        atualizarTabela();
-                        mostrarInfo("Campeonato zerado com sucesso.");
-                    }
-                });
+    // @FXML
+    // private void acionou(javafx.event.ActionEvent event) {
+    // Object origem = event.getSource();
+    // try {
+    // // if (origem == btnZerarCampeonato) {
+    // // Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Deseja reiniciar
+    // o
+    // // campeonato?",
+    // // ButtonType.YES, ButtonType.NO);
+    // // confirm.setTitle("Confirmar");
+    // // confirm.showAndWait().ifPresent(r -> {
+    // // if (r == ButtonType.YES) {
+    // // campeonatoService.reiniciarCampeonato();
+    // // atualizarTabela();
+    // // mostrarInfo("Campeonato zerado com sucesso.");
+    // // }
+    // // });
 
-            } else if (origem == btnInserirTime) {
-                Stage stage = (Stage) rootPane.getScene().getWindow();
-                if (DlgTimeController.showDialog(stage)) {
-                    mostrarInfo("Time adicionado com sucesso!");
-                    atualizarTabela();
-                }
+    // // } else if (origem == btnInserirTime) {
+    // // Stage stage = (Stage) rootPane.getScene().getWindow();
+    // // if (DlgTimeController.showDialog(stage)) {
+    // // mostrarInfo("Time adicionado com sucesso!");
+    // // atualizarTabela();
+    // // }
 
-            } else if (origem == btnInserirJogo) {
-                Stage stage = (Stage) rootPane.getScene().getWindow();
-                if (DlgInserirJogoController.showDialog(stage)) {
-                    atualizarTabela();
-                    mostrarInfo("Jogo adicionado com sucesso.");
-                }
-            }
-        } catch (Exception ex) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Erro: " + ex.getMessage());
-            alert.setTitle("Erro");
-            alert.showAndWait();
-        }
-    }
+    // // } else if (origem == btnInserirJogo) {
+    // // Stage stage = (Stage) rootPane.getScene().getWindow();
+    // // if (DlgInserirJogoController.showDialog(stage)) {
+    // // atualizarTabela();
+    // // mostrarInfo("Jogo adicionado com sucesso.");
+    // // }
+    // // }
+    // } catch (Exception ex) {
+    // Alert alert = new Alert(Alert.AlertType.ERROR, "Erro: " + ex.getMessage());
+    // alert.setTitle("Erro");
+    // alert.showAndWait();
+    // }
+    // }
 
     @FXML
     private void abrirPacientes() {
@@ -173,9 +179,25 @@ public class FrmPrincipalController {
     }
 
     @FXML
-    private void abrirTestes() {
+    public void abrirCadastroTestes() {
         Stage stage = (Stage) rootPane.getScene().getWindow();
         Views.DlgTesteController.showDialog(stage);
+    }
+
+    public void abrirListagemTestes() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FrmTestes.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage stage = new Stage();
+            stage.initOwner(rootPane.getScene().getWindow());
+            stage.setTitle("Listagem de Testes");
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
