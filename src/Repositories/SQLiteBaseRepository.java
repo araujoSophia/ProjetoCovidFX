@@ -61,7 +61,7 @@ public abstract class SQLiteBaseRepository {
                 stmt.execute(criarTabelaPaciente);
 
                 // Criação da tabela "teste"
-                String criarTabelaTeste = "CREATE TABLE IF NOT EXISTS teste (" +
+                String criarTabelaTeste = "CREATE TABLE IF NOT EXISTS testes (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "cpf_paciente TEXT NOT NULL," +
                         "data_teste TEXT NOT NULL," +
