@@ -1,7 +1,7 @@
 package Views;
 
 import Entities.ObitoEntity;
-import Services.CampeonatoService;
+import Services.CovidService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,7 +19,7 @@ public class DlgObitoController {
     private Stage dialogStage;
     private boolean resposta = false;
 
-    private CampeonatoService campeonatoService = new CampeonatoService();
+    private CovidService covidService = new CovidService();
 
     @FXML
     private void salvar() {
@@ -32,13 +32,13 @@ public class DlgObitoController {
                 return;
             }
 
-            if (!campeonatoService.pacienteExiste(cpf)) {
+            if (!covidService.pacienteExiste(cpf)) {
                 mostrarAlerta("Paciente com esse CPF não encontrado!");
                 return;
             }
 
             ObitoEntity obito = new ObitoEntity(cpf, data);
-            campeonatoService.inserirObito(obito);
+            covidService.inserirObito(obito);
 
             resposta = true;
             dialogStage.close();

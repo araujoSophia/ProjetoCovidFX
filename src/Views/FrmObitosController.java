@@ -1,7 +1,7 @@
 package Views;
 
 import Models.ObitoModel;
-import Services.CampeonatoService;
+import Services.CovidService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,7 +19,7 @@ public class FrmObitosController {
     @FXML
     private TableColumn<ObitoModel, String> colCpf;
 
-    private CampeonatoService campeonatoService = new CampeonatoService();
+    private CovidService covidService = new CovidService();
 
     @FXML
     private void initialize() {
@@ -31,7 +31,7 @@ public class FrmObitosController {
 
     private void carregarTabela() {
         ObservableList<ObitoModel> dados = FXCollections.observableArrayList(
-                campeonatoService.obterObitosParaTabela());
+                covidService.obterObitosParaTabela());
         tabelaObitos.setItems(dados);
     }
 

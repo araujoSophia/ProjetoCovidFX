@@ -1,7 +1,7 @@
 package Views;
 
 import Models.TesteModel;
-import Services.CampeonatoService;
+import Services.CovidService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,7 +23,7 @@ public class FrmTestesController {
     @FXML
     private TableColumn<TesteModel, String> colResultado;
 
-    private CampeonatoService campeonatoService = new CampeonatoService();
+    private CovidService covidService = new CovidService();
 
     @FXML
     private void initialize() {
@@ -35,7 +35,7 @@ public class FrmTestesController {
     }
 
     private void atualizarTabela() {
-        ObservableList<TesteModel> dados = FXCollections.observableArrayList(campeonatoService.obterTestesParaTabela());
+        ObservableList<TesteModel> dados = FXCollections.observableArrayList(covidService.obterTestesParaTabela());
         tabelaTestes.setItems(dados);
     }
 }

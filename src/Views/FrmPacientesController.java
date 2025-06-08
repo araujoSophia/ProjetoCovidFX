@@ -1,7 +1,7 @@
 package Views;
 
 import Models.PacienteModel;
-import Services.CampeonatoService;
+import Services.CovidService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -40,7 +40,7 @@ public class FrmPacientesController {
     @FXML
     private TextField txtFiltro;
 
-    private CampeonatoService campeonatoService = new CampeonatoService();
+    private CovidService covidService = new CovidService();
 
     @FXML
     private void initialize() {
@@ -62,7 +62,7 @@ public class FrmPacientesController {
 
     private void atualizarTabela() {
         ObservableList<PacienteModel> dados = FXCollections
-                .observableArrayList(campeonatoService.obterPacientesParaTabela());
+                .observableArrayList(covidService.obterPacientesParaTabela());
         tabelaPacientes.setItems(dados);
     }
 
@@ -72,7 +72,7 @@ public class FrmPacientesController {
 
         ObservableList<PacienteModel> listaFiltrada = FXCollections.observableArrayList();
 
-        for (PacienteModel paciente : FXCollections.observableArrayList(campeonatoService.obterPacientesParaTabela())) {
+        for (PacienteModel paciente : FXCollections.observableArrayList(covidService.obterPacientesParaTabela())) {
             if (paciente.getNome().toLowerCase().contains(filtro) ||
                     paciente.getCpf().toLowerCase().contains(filtro) ||
                     paciente.getCidade().toLowerCase().contains(filtro) ||
@@ -122,7 +122,7 @@ public class FrmPacientesController {
         confirm.showAndWait().ifPresent(resposta -> {
             if (resposta == ButtonType.OK) {
                 try {
-                    campeonatoService.removerPaciente(paciente.getCpf());
+                    covidService.removerPaciente(paciente.getCpf());
                     atualizarTabela();
                     mostrarInfo("Paciente removido com sucesso.");
                 } catch (Exception e) {

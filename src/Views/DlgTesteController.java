@@ -1,7 +1,7 @@
 package Views;
 
 import Entities.TesteEntity;
-import Services.CampeonatoService;
+import Services.CovidService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
@@ -21,7 +21,7 @@ public class DlgTesteController {
     private Stage dialogStage;
     private boolean resposta = false;
 
-    private CampeonatoService campeonatoService = new CampeonatoService();
+    private CovidService covidService = new CovidService();
 
     @FXML
     private void initialize() {
@@ -44,13 +44,13 @@ public class DlgTesteController {
                 return;
             }
 
-            if (!campeonatoService.pacienteExiste(cpf)) {
+            if (!covidService.pacienteExiste(cpf)) {
                 mostrarAlerta("Paciente com esse CPF não encontrado!");
                 return;
             }
 
             TesteEntity teste = new TesteEntity(cpf, data, resultado);
-            campeonatoService.inserirTeste(teste);
+            covidService.inserirTeste(teste);
 
             resposta = true;
             dialogStage.close();

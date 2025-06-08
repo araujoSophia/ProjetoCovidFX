@@ -1,7 +1,7 @@
 package Views;
 
 import Entities.PacienteEntity;
-import Services.CampeonatoService;
+import Services.CovidService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -40,7 +40,7 @@ public class DlgPacienteController {
     @FXML
     private Button btnCancelar;
 
-    private CampeonatoService campeonatoService = new CampeonatoService();
+    private CovidService covidService = new CovidService();
     private PacienteEntity pacienteExistente;
     private boolean resposta = false;
 
@@ -51,7 +51,7 @@ public class DlgPacienteController {
     }
 
     public void setPacienteExistente(String cpf) throws Exception {
-        this.pacienteExistente = cpf == null ? null : campeonatoService.buscarPacientePorCpf(cpf);
+        this.pacienteExistente = cpf == null ? null : covidService.buscarPacientePorCpf(cpf);
         if (pacienteExistente != null) {
             txtCpf.setText(pacienteExistente.getCpf());
             // txtCpf.setDisable(true); // Não permitir editar cpf em edição
@@ -124,11 +124,11 @@ public class DlgPacienteController {
                 novoPaciente.setEstado(estado);
                 novoPaciente.setCidade(cidade);
                 novoPaciente.setFoto(foto);
-                campeonatoService.inserirPaciente(novoPaciente);
+                covidService.inserirPaciente(novoPaciente);
 
             } else {
                 pacienteExistente.setNome(nome);
-                campeonatoService.editarPaciente(pacienteExistente);
+                covidService.editarPaciente(pacienteExistente);
             }
             resposta = true;
             dialogStage.close();
