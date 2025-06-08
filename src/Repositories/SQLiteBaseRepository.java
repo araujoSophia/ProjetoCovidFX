@@ -19,7 +19,6 @@ public abstract class SQLiteBaseRepository {
         }
     }
 
-
     public SQLiteBaseRepository() {
         inicializarBancoSeNecessario();
     }
@@ -34,7 +33,7 @@ public abstract class SQLiteBaseRepository {
 
         if (!bancoExiste) {
             try (Connection conn = connect();
-                 Statement stmt = conn.createStatement()) {
+                    Statement stmt = conn.createStatement()) {
 
                 System.out.println("Criando novo banco de dados e tabelas...");
 
@@ -47,11 +46,34 @@ public abstract class SQLiteBaseRepository {
                         "golsMarcados INTEGER DEFAULT 0," +
                         "golsSofridos INTEGER DEFAULT 0" +
                         ");";
-
                 stmt.execute(criarTabelaTimes);
+
+                // Criação da tabela "paciente"
+                String criarTabelaPaciente = "CREATE TABLE IF NOT EXISTS paciente (" +
+                        "cpf TEXT PRIMARY KEY," +
+                        "nome TEXT NOT NULL," +
+                        "data_nasc TEXT," +
+                        "idade INTEGER," +
+                        "estado TEXT," +
+                        "cidade TEXT," +
+                        "foto TEXT" +
+                        ");";
+                stmt.execute(criarTabelaPaciente);
+
+                // Criação da tabela "teste"
+                String criarTabelaTeste = "CREATE TABLE IF NOT EXISTS teste (" +
+                        "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                        "cpf_paciente TEXT NOT NULL," +
+                        "data_teste TEXT NOT NULL," +
+                        "resultado TEXT NOT NULL," +
+                        "FOREIGN KEY (cpf_paciente) REFERENCES paciente(cpf)" +
+                        ");";
+                stmt.execute(criarTabelaTeste);
+
             } catch (SQLException e) {
                 System.err.println("Erro ao inicializar o banco de dados: " + e.getMessage());
             }
         }
     }
+
 }

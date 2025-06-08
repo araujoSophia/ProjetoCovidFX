@@ -2,9 +2,11 @@ package Services;
 
 import Entities.JogoEntity;
 import Entities.PacienteEntity;
+import Entities.TesteEntity;
 import Entities.TimeEntity;
 import Models.TimeModel;
 import Repositories.PacienteRepository;
+import Repositories.TesteRepository;
 import Repositories.TimeRepository;
 
 import java.util.*;
@@ -13,10 +15,12 @@ public class CampeonatoService {
 
     private final TimeRepository timeRepository;
     private final PacienteRepository pacienteRepository;
+    private TesteRepository testeRepository = new TesteRepository();
 
     public CampeonatoService() {
         this.timeRepository = new TimeRepository();
         this.pacienteRepository = new PacienteRepository();
+        this.testeRepository = new TesteRepository();
     }
 
     public void inserirJogo(JogoEntity jogo) {
@@ -200,6 +204,21 @@ public class CampeonatoService {
         for (Entities.PacienteEntity paciente : lista) {
             pacienteRepository.remover(paciente.getCpf());
         }
+    }
+
+    public boolean pacienteExiste(String cpf) throws Exception {
+        return pacienteRepository.buscarPorCpf(cpf) != null;
+    }
+
+    // ====== TESTES ======
+
+    public void inserirTeste(TesteEntity teste) throws Exception {
+        // Antes de inserir, verifica se o paciente existe
+        PacienteEntity paciente = buscarPacientePorCpf(teste.getCpfPaciente());
+        if (paciente == null) {
+            throw new Exception("Paciente com CPF " + teste.getCpfPaciente() + " não encontrado.");
+        }
+        testeRepository.inserir(teste);
     }
 
 }

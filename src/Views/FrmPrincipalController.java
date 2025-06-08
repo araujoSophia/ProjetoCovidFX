@@ -172,4 +172,10 @@ public class FrmPrincipalController {
         }
     }
 
+    @FXML
+    private void abrirTestes() {
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        Views.DlgTesteController.showDialog(stage);
+    }
+
 }
