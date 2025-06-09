@@ -40,7 +40,7 @@ Clone o projeto:
 
 ```bash
 git clone <url-do-repositório>
-cd Campeonato
+cd ProjetoCovidFX
 ```
 
 Compile e empacote com dependências:
@@ -58,11 +58,10 @@ mvn -s maven-settings.xml clean javafx:run
 ### Executar o JAR final
 
 ```bash
-java -jar dist/Campeonato-1.0-shaded.jar
+java -jar dist/ProjetoCovidFX-1.0-shaded.jar
 ```
 
 ---
-
 
 ## 📦 Dependência JDBC do SQLite
 
