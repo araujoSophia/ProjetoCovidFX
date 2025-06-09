@@ -100,7 +100,7 @@ public class DlgPacienteController {
 
             if (cpf.isEmpty() || nome.isEmpty() || dataNasc.isEmpty() || idadeStr.isEmpty() || estado.isEmpty()
                     || cidade.isEmpty() || foto == null) {
-                mostrarErro("Todos os campos devem ser preenchidos, incluindo a foto.");
+                mostrarAlerta("Todos os campos devem ser preenchidos, incluindo a foto.");
                 return;
             }
 
@@ -112,11 +112,11 @@ public class DlgPacienteController {
             try {
                 idade = Integer.parseInt(idadeStr);
                 if (idade < 0 || idade > 130) {
-                    mostrarErro("Idade inválida! Deve ser um número entre 0 e 130.");
+                    mostrarAlerta("Idade inválida! Deve ser um número entre 0 e 130.");
                     return;
                 }
             } catch (NumberFormatException e) {
-                mostrarErro("Idade inválida! Deve ser um número inteiro.");
+                mostrarAlerta("Idade inválida! Deve ser um número inteiro.");
                 return;
             }
 
@@ -133,6 +133,11 @@ public class DlgPacienteController {
 
             } else {
                 pacienteExistente.setNome(nome);
+                pacienteExistente.setDataNasc(dataNasc);
+                pacienteExistente.setIdade(idade);
+                pacienteExistente.setEstado(estado);
+                pacienteExistente.setCidade(cidade);
+                pacienteExistente.setFoto(foto);
                 covidService.editarPaciente(pacienteExistente);
             }
             resposta = true;
@@ -184,15 +189,13 @@ public class DlgPacienteController {
         return showDialog(owner, null);
     }
 
-    private void mostrarErro(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erro no Cadastro");
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
+    private void mostrarAlerta(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, mensagem, ButtonType.OK);
+        alert.setTitle("Atenção");
         alert.showAndWait();
     }
 
-    private void mostrarAlerta(String mensagem) {
+    private void mostrarErro(String mensagem) {
         Alert alert = new Alert(Alert.AlertType.ERROR, mensagem, ButtonType.OK);
         alert.setTitle("Erro");
         alert.showAndWait();

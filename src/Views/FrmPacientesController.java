@@ -107,10 +107,14 @@ public class FrmPacientesController {
     private void editarPaciente(PacienteModel paciente) {
         Stage stage = (Stage) rootPane.getScene().getWindow();
         try {
-            DlgPacienteController.showDialog(stage, paciente.getCpf());
-            atualizarTabela();
+            boolean resultado = DlgPacienteController.showDialog(stage, paciente.getCpf());
+            if (resultado) {
+                mostrarInfo("Paciente editado com sucesso!");
+                atualizarTabela();
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            mostrarErro("Erro: " + e.getMessage());
         }
     }
 
@@ -134,16 +138,15 @@ public class FrmPacientesController {
     }
 
     private void mostrarInfo(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informação");
+        Alert alert = new Alert(Alert.AlertType.NONE, mensagem, ButtonType.OK);
+        alert.setTitle("Sucesso");
         alert.setContentText(mensagem);
         alert.showAndWait();
     }
 
     private void mostrarErro(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.ERROR, mensagem, ButtonType.OK);
         alert.setTitle("Erro");
-        alert.setContentText(mensagem);
         alert.showAndWait();
     }
 

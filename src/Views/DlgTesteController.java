@@ -52,11 +52,13 @@ public class DlgTesteController {
             TesteEntity teste = new TesteEntity(cpf, data, resultado);
             covidService.inserirTeste(teste);
 
+            mostrarInfo("Teste adicionado com sucesso!");
+
             resposta = true;
             dialogStage.close();
 
         } catch (Exception e) {
-            mostrarAlerta("Erro: " + e.getMessage());
+            mostrarErro("Erro: " + e.getMessage());
         }
     }
 
@@ -69,8 +71,21 @@ public class DlgTesteController {
         return resposta;
     }
 
-    private void mostrarAlerta(String msg) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
+    private void mostrarInfo(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.NONE, mensagem, ButtonType.OK);
+        alert.setTitle("Sucesso");
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+    private void mostrarAlerta(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, mensagem, ButtonType.OK);
+        alert.setTitle("Atenção");
+        alert.showAndWait();
+    }
+
+    private void mostrarErro(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, mensagem, ButtonType.OK);
         alert.setTitle("Erro");
         alert.showAndWait();
     }
