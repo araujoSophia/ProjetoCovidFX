@@ -17,7 +17,7 @@
                 <HBox spacing="10" alignment="CENTER">
                     <Label text="Filtro:" />
                     <TextField fx:id="txtFiltro" promptText="Digite Nome, CPF, Cidade ou Estado" />
-                    <Button text="Filtrar" onAction="#filtrarPacientes" />
+                    <Button text="🔍" onAction="#filtrarPacientes" />
                 </HBox>
             <TableView fx:id="tabelaPacientes">
                 <columns>
