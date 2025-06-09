@@ -54,7 +54,7 @@ public class DlgPacienteController {
         this.pacienteExistente = cpf == null ? null : covidService.buscarPacientePorCpf(cpf);
         if (pacienteExistente != null) {
             txtCpf.setText(pacienteExistente.getCpf());
-            // txtCpf.setDisable(true); // Não permitir editar cpf em edição
+            txtCpf.setDisable(true); // Não permitir editar cpf em edição
             txtCpf.setText(pacienteExistente.getCpf());
             dialogStage.setTitle("Editar cpf");
         } else {
@@ -101,6 +101,11 @@ public class DlgPacienteController {
             if (cpf.isEmpty() || nome.isEmpty() || dataNasc.isEmpty() || idadeStr.isEmpty() || estado.isEmpty()
                     || cidade.isEmpty() || foto == null) {
                 mostrarErro("Todos os campos devem ser preenchidos, incluindo a foto.");
+                return;
+            }
+
+            if (cpf.length() != 11 || !cpf.matches("\\d{11}")) {
+                mostrarAlerta("O CPF deve ter exatamente 11 números.");
                 return;
             }
 
@@ -184,6 +189,12 @@ public class DlgPacienteController {
         alert.setTitle("Erro no Cadastro");
         alert.setHeaderText(null);
         alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+    private void mostrarAlerta(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, mensagem, ButtonType.OK);
+        alert.setTitle("Erro");
         alert.showAndWait();
     }
 
