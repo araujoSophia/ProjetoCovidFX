@@ -18,6 +18,7 @@
                     <Label text="Filtro:" />
                     <TextField fx:id="txtFiltro" promptText="Digite Nome, CPF, Cidade ou Estado" />
                     <Button text="🔍" onAction="#filtrarPacientes" />
+                    <Button text="Limpar Filtro" onAction="#mostrarTodosPacientes" />
                 </HBox>
             <TableView fx:id="tabelaPacientes">
                 <columns>

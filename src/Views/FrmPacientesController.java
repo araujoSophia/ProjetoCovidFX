@@ -66,9 +66,34 @@ public class FrmPacientesController {
         tabelaPacientes.setItems(dados);
     }
 
+    // @FXML
+    // private void filtrarPacientes() {
+    // String filtro = txtFiltro.getText().trim().toLowerCase();
+
+    // ObservableList<PacienteModel> listaFiltrada =
+    // FXCollections.observableArrayList();
+
+    // for (PacienteModel paciente :
+    // FXCollections.observableArrayList(covidService.obterPacientesParaTabela())) {
+    // if (paciente.getNome().toLowerCase().contains(filtro) ||
+    // paciente.getCpf().toLowerCase().contains(filtro) ||
+    // paciente.getCidade().toLowerCase().contains(filtro) ||
+    // paciente.getEstado().toLowerCase().contains(filtro)) {
+    // listaFiltrada.add(paciente);
+    // }
+    // }
+
+    // tabelaPacientes.setItems(listaFiltrada);
+    // }
+
     @FXML
     private void filtrarPacientes() {
         String filtro = txtFiltro.getText().trim().toLowerCase();
+
+        if (filtro.isEmpty()) {
+            mostrarAlerta("Por favor, digite algo para filtrar.");
+            return;
+        }
 
         ObservableList<PacienteModel> listaFiltrada = FXCollections.observableArrayList();
 
@@ -82,6 +107,11 @@ public class FrmPacientesController {
         }
 
         tabelaPacientes.setItems(listaFiltrada);
+    }
+
+    @FXML
+    private void mostrarTodosPacientes() {
+        atualizarTabela();
     }
 
     private void adicionarColunaBotao(TableColumn<PacienteModel, Void> coluna, String texto,
@@ -141,6 +171,12 @@ public class FrmPacientesController {
         Alert alert = new Alert(Alert.AlertType.NONE, mensagem, ButtonType.OK);
         alert.setTitle("Sucesso");
         alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+    private void mostrarAlerta(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, mensagem, ButtonType.OK);
+        alert.setTitle("Atenção");
         alert.showAndWait();
     }
 
