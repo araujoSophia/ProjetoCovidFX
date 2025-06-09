@@ -61,14 +61,14 @@ public abstract class SQLiteBaseRepository {
                 stmt.execute(criarTabelaPaciente);
 
                 // Criação da tabela "teste"
-                String criarTabelaTeste = "CREATE TABLE IF NOT EXISTS testes (" +
+                String criarTabelaTestes = "CREATE TABLE IF NOT EXISTS testes (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "cpf_paciente TEXT NOT NULL," +
                         "data_teste TEXT NOT NULL," +
                         "resultado TEXT NOT NULL," +
                         "FOREIGN KEY (cpf_paciente) REFERENCES paciente(cpf)" +
                         ");";
-                stmt.execute(criarTabelaTeste);
+                stmt.execute(criarTabelaTestes);
 
                 // Criação da tabela "óbito"
                 String criarTabelaObitos = "CREATE TABLE IF NOT EXISTS obitos (" +

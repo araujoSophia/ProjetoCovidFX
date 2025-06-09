@@ -11,7 +11,7 @@ public class TesteRepository extends SQLiteBaseRepository {
 
     public void inserir(TesteEntity teste) throws SQLException {
         try (Connection conn = connect()) {
-            String sql = "INSERT INTO teste (cpf_paciente, data_teste, resultado) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO testes (cpf_paciente, data_teste, resultado) VALUES (?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, teste.getCpfPaciente());
             stmt.setString(2, teste.getDataTeste());
@@ -23,7 +23,7 @@ public class TesteRepository extends SQLiteBaseRepository {
     public ArrayList<TesteEntity> listar() {
         ArrayList<TesteEntity> lista = new ArrayList<>();
         try (Connection conn = connect()) {
-            String sql = "SELECT * FROM teste";
+            String sql = "SELECT * FROM testes";
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
