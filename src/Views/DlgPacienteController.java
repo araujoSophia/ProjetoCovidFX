@@ -52,11 +52,32 @@ public class DlgPacienteController {
 
     public void setPacienteExistente(String cpf) throws Exception {
         this.pacienteExistente = cpf == null ? null : covidService.buscarPacientePorCpf(cpf);
+
         if (pacienteExistente != null) {
             txtCpf.setText(pacienteExistente.getCpf());
-            txtCpf.setDisable(true); // Não permitir editar cpf em edição
-            txtCpf.setText(pacienteExistente.getCpf());
-            dialogStage.setTitle("Editar cpf");
+            txtCpf.setDisable(true); // CPF não pode ser editado
+
+            txtNome.setText(pacienteExistente.getNome());
+
+            if (pacienteExistente.getDataNasc() != null && !pacienteExistente.getDataNasc().isEmpty()) {
+                txtDataNasc.setValue(java.time.LocalDate.parse(pacienteExistente.getDataNasc()));
+            }
+
+            txtIdade.setText(String.valueOf(pacienteExistente.getIdade()));
+            txtEstado.setText(pacienteExistente.getEstado());
+            txtCidade.setText(pacienteExistente.getCidade());
+
+            // Se já tem foto salva, exibe no ImageView
+            if (pacienteExistente.getFoto() != null && !pacienteExistente.getFoto().isEmpty()) {
+                File file = new File(pacienteExistente.getFoto());
+                if (file.exists()) {
+                    Image imagem = new Image(file.toURI().toString());
+                    imgFoto.setImage(imagem);
+                    caminhoFotoSelecionada = pacienteExistente.getFoto();
+                }
+            }
+
+            dialogStage.setTitle("Editar Paciente");
         } else {
             dialogStage.setTitle("Inserir Paciente");
         }
