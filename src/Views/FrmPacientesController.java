@@ -72,26 +72,6 @@ public class FrmPacientesController {
         tabelaPacientes.setItems(dados);
     }
 
-    // @FXML
-    // private void filtrarPacientes() {
-    // String filtro = txtFiltro.getText().trim().toLowerCase();
-
-    // ObservableList<PacienteModel> listaFiltrada =
-    // FXCollections.observableArrayList();
-
-    // for (PacienteModel paciente :
-    // FXCollections.observableArrayList(covidService.obterPacientesParaTabela())) {
-    // if (paciente.getNome().toLowerCase().contains(filtro) ||
-    // paciente.getCpf().toLowerCase().contains(filtro) ||
-    // paciente.getCidade().toLowerCase().contains(filtro) ||
-    // paciente.getEstado().toLowerCase().contains(filtro)) {
-    // listaFiltrada.add(paciente);
-    // }
-    // }
-
-    // tabelaPacientes.setItems(listaFiltrada);
-    // }
-
     @FXML
     private void filtrarPacientes() {
         String filtro = txtFiltro.getText().trim().toLowerCase();
@@ -107,7 +87,8 @@ public class FrmPacientesController {
             if (paciente.getNome().toLowerCase().contains(filtro) ||
                     paciente.getCpf().toLowerCase().contains(filtro) ||
                     paciente.getCidade().toLowerCase().contains(filtro) ||
-                    paciente.getEstado().toLowerCase().contains(filtro)) {
+                    paciente.getEstado().toLowerCase().contains(filtro) ||
+                    paciente.getDataNasc().contains(filtro)) {
                 listaFiltrada.add(paciente);
             }
         }
