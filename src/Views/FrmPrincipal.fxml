@@ -4,26 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<BorderPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" fx:controller="Views.FrmPrincipalController" stylesheets="@styles/style.css">
-    
-    <!-- Topo com botões -->
-    <top>
-        <HBox spacing="20" alignment="CENTER">
-            <padding>
-                <Insets top="10" bottom="10" left="10" right="10"/>
-            </padding>
-            <!-- <Button fx:id="btnZerarCampeonato" text="Reiniciar Campeonato" onAction="#acionou" prefWidth="180"/>
-            <Button fx:id="btnInserirTime" text="Inserir Time" onAction="#acionou" prefWidth="150"/>
-            <Button fx:id="btnInserirJogo" text="Inserir Jogo" onAction="#acionou" prefWidth="150"/> -->
-            <Button fx:id="btnPacientes" text="Pacientes" onAction="#abrirPacientes" prefWidth="150"/>
-            <Button fx:id="btnTestes" text="Testes" onAction="#abrirCadastroTestes" prefWidth="150"/>
-            <Button fx:id="btnListarTestes" text="Listar Testes" onAction="#abrirListagemTestes" prefWidth="150"/>
-            <Button fx:id="btnObitos" text="Óbitos" onAction="#abrirCadastroObitos" prefWidth="150"/>
-            <Button fx:id="btnListarObitos" text="Listar Óbitos" onAction="#abrirListagemObitos" prefWidth="150"/>
-        </HBox>
-    </top>
-
-    <!-- Centro com tabela -->
+<BorderPane fx:id="rootPane" xmlns:fx="http://javafx.com/fxml" 
+             fx:controller="Views.FrmPrincipalController" 
+             stylesheets="@styles/style.css">
     <center>
         <TableView fx:id="tabelaTimes" prefHeight="400" prefWidth="780">
             <BorderPane.margin>
@@ -42,4 +25,24 @@
             </columns>
         </TableView>
     </center>
+    <left>
+        <VBox spacing="15" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" bottom="20" left="10" right="10"/>
+            </padding>
+     <!--<ImageView fx:id="imgMenu" fitWidth="100" fitHeight="100" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/images/logo.png"/>
+            </image>
+        </ImageView>-->
+            <Label text="MENU PRINCIPAL" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+            <Button fx:id="btnPacientes" text="Pacientes" onAction="#abrirPacientes" prefWidth="180" prefHeight="40"/>
+            <Button fx:id="btnTestes" text="Testes" onAction="#abrirCadastroTestes" prefWidth="180" prefHeight="40"/>
+            <Button fx:id="btnListarTestes" text="Listar Testes" onAction="#abrirListagemTestes" prefWidth="180" prefHeight="40"/>
+            <Button fx:id="btnObitos" text="Óbitos" onAction="#abrirCadastroObitos" prefWidth="180" prefHeight="40"/>
+            <Button fx:id="btnListarObitos" text="Listar Óbitos" onAction="#abrirListagemObitos" prefWidth="180" prefHeight="40"/>
+            <Button fx:id="btnSobre" text="Sobre" onAction="#abrirTelaSobre" prefWidth="180" prefHeight="40"/>
+        </VBox>
+    </left>
 </BorderPane>
+
