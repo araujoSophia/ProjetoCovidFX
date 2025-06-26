@@ -41,7 +41,13 @@
             <Button fx:id="btnListarTestes" text="Listar Testes" onAction="#abrirListagemTestes" prefWidth="180" prefHeight="40"/>
             <Button fx:id="btnObitos" text="Óbitos" onAction="#abrirCadastroObitos" prefWidth="180" prefHeight="40"/>
             <Button fx:id="btnListarObitos" text="Listar Óbitos" onAction="#abrirListagemObitos" prefWidth="180" prefHeight="40"/>
+            <Button fx:id="btnGrafico" text="Gráfico" onAction="#abrirGrafico" prefWidth="180" prefHeight="40"/>
+            <Button fx:id="btnDashboard" text="Dashboard" onAction="#abrirDashboard" prefWidth="180" prefHeight="40"/>
+            <Button text="Importar Dados" onAction="#abrirImportacao" prefWidth="180" prefHeight="40"/>
+            <Button text="Exportar Estatísticas" onAction="#abrirExportacao" prefWidth="180" prefHeight="40"/>
             <Button fx:id="btnSobre" text="Sobre" onAction="#abrirTelaSobre" prefWidth="180" prefHeight="40"/>
+            
+
         </VBox>
     </left>
 </BorderPane>

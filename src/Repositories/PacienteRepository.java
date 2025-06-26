@@ -1,10 +1,28 @@
 package Repositories;
 
-import Entities.PacienteEntity;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
+import Entities.PacienteEntity;
+
 public class PacienteRepository extends SQLiteBaseRepository {
+
+    public int contar() {
+        String sql = "SELECT COUNT(*) FROM paciente";
+        try (Connection conn = connect();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+
+            return rs.next() ? rs.getInt(1) : 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
     public void inserir(PacienteEntity paciente) {
         try (Connection conn = connect()) {
@@ -96,4 +114,5 @@ public class PacienteRepository extends SQLiteBaseRepository {
         }
         return null;
     }
+    
 }

@@ -1,31 +1,20 @@
 package Views;
 
+import java.io.IOException;
+
 import Models.PacienteModel;
-import Models.TimeModel;
-import Services.CampeonatoService;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class FrmPrincipalController {
 
-    @FXML
-    private Button btnZerarCampeonato;
-    @FXML
-    private Button btnInserirTime;
-    @FXML
-    private Button btnInserirJogo;
     @FXML
     private Button btnPacientes;
     @FXML
@@ -36,144 +25,13 @@ public class FrmPrincipalController {
     private BorderPane rootPane;
 
     @FXML
-    private TableView<TimeModel> tabelaTimes;
-    @FXML
     private TableView<PacienteModel> tabelaPacientes;
-    @FXML
-    private TableColumn<TimeModel, Integer> colPosicao;
-    @FXML
-    private TableColumn<TimeModel, String> colApelido;
-    @FXML
-    private TableColumn<TimeModel, String> colNome;
-    @FXML
-    private TableColumn<TimeModel, Integer> colPontos;
-    @FXML
-    private TableColumn<TimeModel, Integer> colGP;
-    @FXML
-    private TableColumn<TimeModel, Integer> colGC;
-    @FXML
-    private TableColumn<TimeModel, Integer> colSG;
-    @FXML
-    private TableColumn<TimeModel, Void> colEditar;
-    @FXML
-    private TableColumn<TimeModel, Void> colRemover;
 
-    private CampeonatoService campeonatoService = new CampeonatoService();
-
-    @FXML
-    private void initialize() {
-        // Ligando colunas às propriedades do TimeModel
-        colPosicao.setCellValueFactory(new PropertyValueFactory<>("posicao"));
-        colApelido.setCellValueFactory(new PropertyValueFactory<>("apelido"));
-        colNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        colPontos.setCellValueFactory(new PropertyValueFactory<>("pontos"));
-        colGP.setCellValueFactory(new PropertyValueFactory<>("GolsMarcados"));
-        colGC.setCellValueFactory(new PropertyValueFactory<>("GolsSofridos"));
-        colSG.setCellValueFactory(new PropertyValueFactory<>("SaldoGols"));
-
-        // Colunas de botão: "Editar" e "Remover"
-        adicionarColunaBotao(colEditar, "Editar", this::editarTime);
-        adicionarColunaBotao(colRemover, "Remover", this::removerTime);
-
-        atualizarTabela();
-    }
     @FXML
     private void abrirTelaSobre() {
-    Views.TelaSobre tela = new Views.TelaSobre();
-    tela.setVisible(true);
+        Views.TelaSobre tela = new Views.TelaSobre();
+        tela.setVisible(true);
     }
-
-
-    private void atualizarTabela() {
-        ObservableList<TimeModel> dados = FXCollections.observableArrayList(campeonatoService.obterClassificacao());
-        tabelaTimes.setItems(dados);
-    }
-
-    private void adicionarColunaBotao(TableColumn<TimeModel, Void> coluna, String texto,
-            java.util.function.Consumer<TimeModel> acao) {
-        coluna.setCellFactory(col -> new TableCell<>() {
-            private final Button btn = new Button(texto);
-
-            {
-                btn.setOnAction(e -> {
-                    TimeModel time = getTableView().getItems().get(getIndex());
-                    acao.accept(time);
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-                setGraphic(empty ? null : btn);
-            }
-        });
-    }
-
-    private void editarTime(TimeModel time) {
-        Stage stage = (Stage) rootPane.getScene().getWindow();
-        DlgTimeController.showDialog(stage, time.getApelido());
-        atualizarTabela();
-    }
-
-    private void removerTime(TimeModel time) {
-        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-        confirm.setTitle("Confirmar Remoção");
-        confirm.setHeaderText("Remover time: " + time.getNome());
-        confirm.setContentText("Tem certeza que deseja remover este time?");
-        confirm.showAndWait().ifPresent(resposta -> {
-            if (resposta == ButtonType.OK) {
-                campeonatoService.removerTime(time.getApelido());
-                atualizarTabela();
-                mostrarInfo("Time removido com sucesso.");
-            }
-        });
-    }
-
-    private void mostrarInfo(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informação");
-        alert.setContentText(mensagem);
-        alert.showAndWait();
-    }
-
-    // @FXML
-    // private void acionou(javafx.event.ActionEvent event) {
-    // Object origem = event.getSource();
-    // try {
-    // // if (origem == btnZerarCampeonato) {
-    // // Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Deseja reiniciar
-    // o
-    // // campeonato?",
-    // // ButtonType.YES, ButtonType.NO);
-    // // confirm.setTitle("Confirmar");
-    // // confirm.showAndWait().ifPresent(r -> {
-    // // if (r == ButtonType.YES) {
-    // // campeonatoService.reiniciarCampeonato();
-    // // atualizarTabela();
-    // // mostrarInfo("Campeonato zerado com sucesso.");
-    // // }
-    // // });
-
-    // // } else if (origem == btnInserirTime) {
-    // // Stage stage = (Stage) rootPane.getScene().getWindow();
-    // // if (DlgTimeController.showDialog(stage)) {
-    // // mostrarInfo("Time adicionado com sucesso!");
-    // // atualizarTabela();
-    // // }
-
-    // // } else if (origem == btnInserirJogo) {
-    // // Stage stage = (Stage) rootPane.getScene().getWindow();
-    // // if (DlgInserirJogoController.showDialog(stage)) {
-    // // atualizarTabela();
-    // // mostrarInfo("Jogo adicionado com sucesso.");
-    // // }
-    // // }
-    // } catch (Exception ex) {
-    // Alert alert = new Alert(Alert.AlertType.ERROR, "Erro: " + ex.getMessage());
-    // alert.setTitle("Erro");
-    // alert.showAndWait();
-    // }
-    // }
 
     @FXML
     private void abrirPacientes() {
@@ -233,5 +91,53 @@ public class FrmPrincipalController {
             e.printStackTrace();
         }
     }
+    @FXML
+private void abrirGrafico(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FrmGrafico.fxml"));
+        Parent root = loader.load();
 
+        Stage stage = new Stage();
+        stage.setTitle("Gráfico COVID");
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+@FXML
+private void abrirDashboard(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FrmDashboard.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Dashboard COVID");
+        stage.setScene(new Scene(root));
+        stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            }
+    }
+    @FXML
+private void abrirImportacao(ActionEvent event) {
+    abrirTela("/views/FrmImportacao.fxml", "Importar Dados");
+}
+
+@FXML
+private void abrirExportacao(ActionEvent event) {
+    abrirTela("/views/FrmExportacao.fxml", "Exportar Estatísticas");
+}
+
+private void abrirTela(String fxml, String titulo) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle(titulo);
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 }

@@ -32,7 +32,6 @@ public class FrmMenuPrincipal extends JFrame {
         btnSobre.addActionListener(e -> new TelaSobre().setVisible(true));
         btnSair.addActionListener(e -> System.exit(0));
 
-        // Ações futuras: abrir outras telas ou dialog
         menu.add(btnPacientes);
         menu.add(btnTestes);
         menu.add(btnObitos);

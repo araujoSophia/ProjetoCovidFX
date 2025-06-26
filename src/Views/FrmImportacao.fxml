@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="Views.FrmImportacaoController"
+      spacing="15" alignment="CENTER" prefWidth="500">
+    <padding><Insets top="20" right="20" bottom="20" left="20" /></padding>
+
+    <Label text="Importar Dados" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <Button text="Importar Pacientes (TXT ou BIN)" onAction="#importarPacientes" />
+    <Button text="Importar Testes (TXT)" onAction="#importarTestes" />
+    <Button text="Importar Óbitos (TXT)" onAction="#importarObitos" />
+
+    <Label fx:id="lblMensagem" style="-fx-text-fill: green; -fx-font-size: 14px;" />
+</VBox>
