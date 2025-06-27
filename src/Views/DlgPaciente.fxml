@@ -38,7 +38,11 @@
     </GridPane>
     
     <HBox spacing="30" alignment="CENTER">
-        <Button fx:id="btnSalvar" text="Salvar" onAction="#handleSalvar" prefWidth="150"/>
-        <Button fx:id="btnCancelar" text="Cancelar" onAction="#handleCancelar" prefWidth="150"/>
+        <Button fx:id="btnCancelar" text="✖ Cancelar" onAction="#handleCancelar" prefWidth="150"
+        style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold;
+        -fx-font-size: 14px; -fx-cursor: hand;"/>
+        <Button fx:id="btnSalvar" text="✔ Salvar" onAction="#handleSalvar" prefWidth="150" 
+        style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-weight: bold; 
+        -fx-font-size: 14px; -fx-cursor: hand;"/>
     </HBox>
 </VBox>

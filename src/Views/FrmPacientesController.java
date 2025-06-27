@@ -5,7 +5,13 @@ import Services.CovidService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -66,9 +72,34 @@ public class FrmPacientesController {
         tabelaPacientes.setItems(dados);
     }
 
+    // @FXML
+    // private void filtrarPacientes() {
+    // String filtro = txtFiltro.getText().trim().toLowerCase();
+
+    // ObservableList<PacienteModel> listaFiltrada =
+    // FXCollections.observableArrayList();
+
+    // for (PacienteModel paciente :
+    // FXCollections.observableArrayList(covidService.obterPacientesParaTabela())) {
+    // if (paciente.getNome().toLowerCase().contains(filtro) ||
+    // paciente.getCpf().toLowerCase().contains(filtro) ||
+    // paciente.getCidade().toLowerCase().contains(filtro) ||
+    // paciente.getEstado().toLowerCase().contains(filtro)) {
+    // listaFiltrada.add(paciente);
+    // }
+    // }
+
+    // tabelaPacientes.setItems(listaFiltrada);
+    // }
+
     @FXML
     private void filtrarPacientes() {
         String filtro = txtFiltro.getText().trim().toLowerCase();
+
+        if (filtro.isEmpty()) {
+            mostrarAlerta("Por favor, digite algo para filtrar.");
+            return;
+        }
 
         ObservableList<PacienteModel> listaFiltrada = FXCollections.observableArrayList();
 
@@ -82,6 +113,11 @@ public class FrmPacientesController {
         }
 
         tabelaPacientes.setItems(listaFiltrada);
+    }
+
+    @FXML
+    private void mostrarTodosPacientes() {
+        atualizarTabela();
     }
 
     private void adicionarColunaBotao(TableColumn<PacienteModel, Void> coluna, String texto,
@@ -107,10 +143,14 @@ public class FrmPacientesController {
     private void editarPaciente(PacienteModel paciente) {
         Stage stage = (Stage) rootPane.getScene().getWindow();
         try {
-            DlgPacienteController.showDialog(stage, paciente.getCpf());
-            atualizarTabela();
+            boolean resultado = DlgPacienteController.showDialog(stage, paciente.getCpf());
+            if (resultado) {
+                mostrarInfo("Paciente editado com sucesso!");
+                atualizarTabela();
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            mostrarErro("Erro: " + e.getMessage());
         }
     }
 
@@ -134,16 +174,21 @@ public class FrmPacientesController {
     }
 
     private void mostrarInfo(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Informação");
+        Alert alert = new Alert(Alert.AlertType.NONE, mensagem, ButtonType.OK);
+        alert.setTitle("Sucesso");
         alert.setContentText(mensagem);
         alert.showAndWait();
     }
 
+    private void mostrarAlerta(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, mensagem, ButtonType.OK);
+        alert.setTitle("Atenção");
+        alert.showAndWait();
+    }
+
     private void mostrarErro(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
+        Alert alert = new Alert(Alert.AlertType.ERROR, mensagem, ButtonType.OK);
         alert.setTitle("Erro");
-        alert.setContentText(mensagem);
         alert.showAndWait();
     }
 

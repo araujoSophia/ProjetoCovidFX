@@ -52,11 +52,32 @@ public class DlgPacienteController {
 
     public void setPacienteExistente(String cpf) throws Exception {
         this.pacienteExistente = cpf == null ? null : covidService.buscarPacientePorCpf(cpf);
+
         if (pacienteExistente != null) {
             txtCpf.setText(pacienteExistente.getCpf());
-            // txtCpf.setDisable(true); // Não permitir editar cpf em edição
-            txtCpf.setText(pacienteExistente.getCpf());
-            dialogStage.setTitle("Editar cpf");
+            txtCpf.setDisable(true); // CPF não pode ser editado
+
+            txtNome.setText(pacienteExistente.getNome());
+
+            if (pacienteExistente.getDataNasc() != null && !pacienteExistente.getDataNasc().isEmpty()) {
+                txtDataNasc.setValue(java.time.LocalDate.parse(pacienteExistente.getDataNasc()));
+            }
+
+            txtIdade.setText(String.valueOf(pacienteExistente.getIdade()));
+            txtEstado.setText(pacienteExistente.getEstado());
+            txtCidade.setText(pacienteExistente.getCidade());
+
+            // Se já tem foto salva, exibe no ImageView
+            if (pacienteExistente.getFoto() != null && !pacienteExistente.getFoto().isEmpty()) {
+                File file = new File(pacienteExistente.getFoto());
+                if (file.exists()) {
+                    Image imagem = new Image(file.toURI().toString());
+                    imgFoto.setImage(imagem);
+                    caminhoFotoSelecionada = pacienteExistente.getFoto();
+                }
+            }
+
+            dialogStage.setTitle("Editar Paciente");
         } else {
             dialogStage.setTitle("Inserir Paciente");
         }
@@ -100,18 +121,23 @@ public class DlgPacienteController {
 
             if (cpf.isEmpty() || nome.isEmpty() || dataNasc.isEmpty() || idadeStr.isEmpty() || estado.isEmpty()
                     || cidade.isEmpty() || foto == null) {
-                mostrarErro("Todos os campos devem ser preenchidos, incluindo a foto.");
+                mostrarAlerta("Todos os campos devem ser preenchidos, incluindo a foto.");
+                return;
+            }
+
+            if (cpf.length() != 11 || !cpf.matches("\\d{11}")) {
+                mostrarAlerta("O CPF deve ter exatamente 11 números.");
                 return;
             }
 
             try {
                 idade = Integer.parseInt(idadeStr);
                 if (idade < 0 || idade > 130) {
-                    mostrarErro("Idade inválida! Deve ser um número entre 0 e 130.");
+                    mostrarAlerta("Idade inválida! Deve ser um número entre 0 e 130.");
                     return;
                 }
             } catch (NumberFormatException e) {
-                mostrarErro("Idade inválida! Deve ser um número inteiro.");
+                mostrarAlerta("Idade inválida! Deve ser um número inteiro.");
                 return;
             }
 
@@ -128,6 +154,11 @@ public class DlgPacienteController {
 
             } else {
                 pacienteExistente.setNome(nome);
+                pacienteExistente.setDataNasc(dataNasc);
+                pacienteExistente.setIdade(idade);
+                pacienteExistente.setEstado(estado);
+                pacienteExistente.setCidade(cidade);
+                pacienteExistente.setFoto(foto);
                 covidService.editarPaciente(pacienteExistente);
             }
             resposta = true;
@@ -174,16 +205,19 @@ public class DlgPacienteController {
         }
     }
 
-    // Sobrecarga para inserir novo paciente
     public static boolean showDialog(Stage owner) {
         return showDialog(owner, null);
     }
 
+    private void mostrarAlerta(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, mensagem, ButtonType.OK);
+        alert.setTitle("Atenção");
+        alert.showAndWait();
+    }
+
     private void mostrarErro(String mensagem) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Erro no Cadastro");
-        alert.setHeaderText(null);
-        alert.setContentText(mensagem);
+        Alert alert = new Alert(Alert.AlertType.ERROR, mensagem, ButtonType.OK);
+        alert.setTitle("Erro");
         alert.showAndWait();
     }
 

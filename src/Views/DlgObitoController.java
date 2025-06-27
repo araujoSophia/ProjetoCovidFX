@@ -40,11 +40,13 @@ public class DlgObitoController {
             ObitoEntity obito = new ObitoEntity(cpf, data);
             covidService.inserirObito(obito);
 
+            mostrarInfo("Óbito adicionado com sucesso!");
+
             resposta = true;
             dialogStage.close();
 
         } catch (Exception e) {
-            mostrarAlerta("Erro: " + e.getMessage());
+            mostrarErro("Erro: " + e.getMessage());
         }
     }
 
@@ -53,8 +55,21 @@ public class DlgObitoController {
         dialogStage.close();
     }
 
-    private void mostrarAlerta(String msg) {
-        Alert alert = new Alert(Alert.AlertType.ERROR, msg, ButtonType.OK);
+    private void mostrarInfo(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.NONE, mensagem, ButtonType.OK);
+        alert.setTitle("Sucesso");
+        alert.setContentText(mensagem);
+        alert.showAndWait();
+    }
+
+    private void mostrarAlerta(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, mensagem, ButtonType.OK);
+        alert.setTitle("Atenção");
+        alert.showAndWait();
+    }
+
+    private void mostrarErro(String mensagem) {
+        Alert alert = new Alert(Alert.AlertType.ERROR, mensagem, ButtonType.OK);
         alert.setTitle("Erro");
         alert.showAndWait();
     }
