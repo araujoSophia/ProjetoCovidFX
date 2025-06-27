@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="Views.FrmDashboardController" spacing="10">
+    <padding>
+        <Insets top="10" right="10" bottom="10" left="10"/>
+    </padding>
+
+    <Label text="📊 Evolução de Casos por Mês" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+    
+    <BarChart fx:id="graficoEvolucao" title="Casos Positivos por Mês" prefHeight="300" prefWidth="600">
+        <xAxis>
+            <CategoryAxis label="Mês/Ano" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis label="Número de Casos" />
+        </yAxis>
+    </BarChart>
+
+    <HBox spacing="20">
+        <Label fx:id="lblMortalidade" text="Taxa de Mortalidade: " style="-fx-font-size: 14px;" />
+        <Label fx:id="lblInfectadosPorcentagem" text="Percentual de Infectados: " style="-fx-font-size: 14px;" />
+    </HBox>
+</VBox>

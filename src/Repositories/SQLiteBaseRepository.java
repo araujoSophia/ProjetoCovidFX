@@ -37,7 +37,6 @@ public abstract class SQLiteBaseRepository {
 
                 System.out.println("Criando novo banco de dados e tabelas...");
 
-                // Criação da tabela "paciente"
                 String criarTabelaPaciente = "CREATE TABLE IF NOT EXISTS paciente (" +
                         "cpf TEXT PRIMARY KEY," +
                         "nome TEXT NOT NULL," +
@@ -49,7 +48,6 @@ public abstract class SQLiteBaseRepository {
                         ");";
                 stmt.execute(criarTabelaPaciente);
 
-                // Criação da tabela "teste"
                 String criarTabelaTestes = "CREATE TABLE IF NOT EXISTS testes (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "cpf_paciente TEXT NOT NULL," +
@@ -59,7 +57,6 @@ public abstract class SQLiteBaseRepository {
                         ");";
                 stmt.execute(criarTabelaTestes);
 
-                // Criação da tabela "óbito"
                 String criarTabelaObitos = "CREATE TABLE IF NOT EXISTS obitos (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "cpfPaciente TEXT NOT NULL," +

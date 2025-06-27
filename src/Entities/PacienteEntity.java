@@ -7,8 +7,7 @@ public class PacienteEntity {
     private int idade;
     private String estado;
     private String cidade;
-    private String foto; // Caminho da foto ou blob no banco, depois decidimos.
-
+    private String foto; 
     public PacienteEntity() {
     }
 

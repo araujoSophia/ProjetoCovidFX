@@ -205,7 +205,6 @@ public class DlgPacienteController {
         }
     }
 
-    // Sobrecarga para inserir novo paciente
     public static boolean showDialog(Stage owner) {
         return showDialog(owner, null);
     }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="Views.FrmExportacaoController"
+      spacing="20" alignment="CENTER" prefWidth="500">
+    <padding><Insets top="20" right="20" bottom="20" left="20" /></padding>
+
+    <Label text="Exportar Estatísticas CSV" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+
+    <Button text="Exportar CSV" onAction="#exportarCSV" />
+
+    <Label fx:id="lblStatus" style="-fx-font-size: 14px;" />
+</VBox>

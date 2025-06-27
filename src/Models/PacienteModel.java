@@ -1,7 +1,7 @@
 package Models;
 
 public class PacienteModel {
-    private int posicao; // Ex: Numeração na tabela
+    private int posicao; 
     private String cpf;
     private String nome;
     private String idade;
@@ -9,7 +9,6 @@ public class PacienteModel {
     private String estado;
     private String dataNasc;
 
-    // Construtor
     public PacienteModel(int posicao, String cpf, String nome, String idade, String cidade, String estado,
             String dataNasc) {
         this.posicao = posicao;
@@ -20,8 +19,6 @@ public class PacienteModel {
         this.estado = estado;
         this.dataNasc = dataNasc;
     }
-
-    // Getters e Setters
 
     public int getPosicao() {
         return posicao;

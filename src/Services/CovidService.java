@@ -1,15 +1,16 @@
 package Services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Entities.ObitoEntity;
 import Entities.PacienteEntity;
 import Entities.TesteEntity;
 import Models.ObitoModel;
 import Models.TesteModel;
+import Repositories.ObitoRepository;
 import Repositories.PacienteRepository;
 import Repositories.TesteRepository;
-import Repositories.ObitoRepository;
-
-import java.util.*;
 
 public class CovidService {
 
@@ -22,8 +23,6 @@ public class CovidService {
         this.testeRepository = new TesteRepository();
         this.obitoRepository = new ObitoRepository();
     }
-
-    // ====== PACIENTES ======
 
     public PacienteEntity buscarPacientePorCpf(String cpf) throws Exception {
         return pacienteRepository.buscarPorCpf(cpf);
@@ -75,10 +74,8 @@ public class CovidService {
         return pacienteRepository.buscarPorCpf(cpf) != null;
     }
 
-    // ====== TESTES ======
 
     public void inserirTeste(TesteEntity teste) throws Exception {
-        // Antes de inserir, verifica se o paciente existe
         PacienteEntity paciente = buscarPacientePorCpf(teste.getCpfPaciente());
         if (paciente == null) {
             throw new Exception("Paciente com CPF " + teste.getCpfPaciente() + " não encontrado.");
@@ -95,8 +92,6 @@ public class CovidService {
         }
         return modelos;
     }
-
-    // ====== ÓBITOS ======
 
     public void inserirObito(ObitoEntity obito) throws Exception {
         PacienteEntity paciente = buscarPacientePorCpf(obito.getCpfPaciente());

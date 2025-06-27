@@ -1,8 +1,12 @@
 package Views;
 
+import java.io.IOException;
+
 import Models.PacienteModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -87,5 +91,53 @@ public class FrmPrincipalController {
             e.printStackTrace();
         }
     }
+    @FXML
+private void abrirGrafico(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FrmGrafico.fxml"));
+        Parent root = loader.load();
 
+        Stage stage = new Stage();
+        stage.setTitle("Gráfico COVID");
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+@FXML
+private void abrirDashboard(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/FrmDashboard.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Dashboard COVID");
+        stage.setScene(new Scene(root));
+        stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            }
+    }
+    @FXML
+private void abrirImportacao(ActionEvent event) {
+    abrirTela("/views/FrmImportacao.fxml", "Importar Dados");
+}
+
+@FXML
+private void abrirExportacao(ActionEvent event) {
+    abrirTela("/views/FrmExportacao.fxml", "Exportar Estatísticas");
+}
+
+private void abrirTela(String fxml, String titulo) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle(titulo);
+        stage.setScene(new Scene(root));
+        stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 }

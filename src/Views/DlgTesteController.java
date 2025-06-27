@@ -3,11 +3,15 @@ package Views;
 import Entities.TesteEntity;
 import Services.CovidService;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class DlgTesteController {
 
@@ -90,7 +94,6 @@ public class DlgTesteController {
         alert.showAndWait();
     }
 
-    // Método estático para abrir o dialog
     public static boolean showDialog(Stage owner) {
         try {
             FXMLLoader loader = new FXMLLoader(DlgTesteController.class.getResource("DlgTeste.fxml"));
