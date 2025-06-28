@@ -15,42 +15,54 @@ import javafx.stage.Stage;
 
 public class FrmExportacaoController {
 
-    @FXML private Label lblStatus;
-    private final Stage stage = new Stage();
+    @FXML
+    private Label lblStatus;
 
     private final PacienteRepository pacienteRepo = new PacienteRepository();
     private final TesteRepository testeRepo = new TesteRepository();
     private final ObitoRepository obitoRepo = new ObitoRepository();
 
-    public void exportarCSV() {
-        FileChooser chooser = new FileChooser();
-        chooser.setTitle("Salvar CSV");
-        chooser.setInitialFileName("estatisticas.csv");
-        File file = chooser.showSaveDialog(stage);
+    @FXML
+    private void exportarCSV() {
+        try {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Salvar CSV");
+            chooser.setInitialFileName("estatisticas.csv");
+            chooser.getExtensionFilters().add(
+                new FileChooser.ExtensionFilter("Arquivos CSV (*.csv)", "*.csv")
+            );
 
-        if (file == null) return;
+            // Obtém a janela atual a partir do label
+            Stage janelaAtual = (Stage) lblStatus.getScene().getWindow();
+            File file = chooser.showSaveDialog(janelaAtual);
 
-        try (PrintWriter out = new PrintWriter(new FileWriter(file))) {
-            int totalPacientes = pacienteRepo.contar();
-            int testados = testeRepo.contar();
-            int infectados = testeRepo.contarPositivos();
-            int obitos = obitoRepo.contar();
-
-            out.println("Tipo,Quantidade");
-            out.printf("Total de Pacientes,%d%n", totalPacientes);
-            out.printf("Pacientes Testados,%d%n", testados);
-            out.printf("Pacientes Infectados,%d%n", infectados);
-            out.printf("Óbitos,%d%n", obitos);
-
-            out.println();
-            out.println("Mês/Ano,Casos Positivos");
-
-            Map<String, Integer> porMes = testeRepo.contarPositivosPorMes();
-            for (Map.Entry<String, Integer> entry : porMes.entrySet()) {
-                out.printf("%s,%d%n", entry.getKey(), entry.getValue());
+            if (file == null) {
+                lblStatus.setText("❌ Exportação cancelada.");
+                return;
             }
 
-            lblStatus.setText("✅ CSV exportado com sucesso.");
+            try (PrintWriter out = new PrintWriter(new FileWriter(file))) {
+                int totalPacientes = pacienteRepo.contar();
+                int testados = testeRepo.contar();
+                int infectados = testeRepo.contarPositivos();
+                int obitos = obitoRepo.contar();
+
+                out.println("Tipo,Quantidade");
+                out.printf("Total de Pacientes,%d%n", totalPacientes);
+                out.printf("Pacientes Testados,%d%n", testados);
+                out.printf("Pacientes Infectados,%d%n", infectados);
+                out.printf("Óbitos,%d%n", obitos);
+
+                out.println();
+                out.println("Mês/Ano,Casos Positivos");
+
+                Map<String, Integer> porMes = testeRepo.contarPositivosPorMes();
+                for (Map.Entry<String, Integer> entry : porMes.entrySet()) {
+                    out.printf("%s,%d%n", entry.getKey(), entry.getValue());
+                }
+
+                lblStatus.setText("✅ CSV exportado com sucesso.");
+            }
         } catch (Exception e) {
             lblStatus.setText("❌ Falha ao exportar CSV.");
             e.printStackTrace();

@@ -38,4 +38,6 @@ public class FrmTestesController {
         ObservableList<TesteModel> dados = FXCollections.observableArrayList(covidService.obterTestesParaTabela());
         tabelaTestes.setItems(dados);
     }
+
+    
 }

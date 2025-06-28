@@ -12,6 +12,8 @@
                 <TableColumn text="Data" fx:id="colData" prefWidth="200"/>
                 <TableColumn text="CPF Paciente" fx:id="colCpfPaciente" prefWidth="200"/>
                 <TableColumn text="Resultado" fx:id="colResultado" prefWidth="200"/>
+                <TableColumn fx:id="colEditar" text="Editar" />
+                <TableColumn fx:id="colRemover" text="Remover" />
             </columns>
         </TableView>
     </center>
